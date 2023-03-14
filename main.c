@@ -52,14 +52,15 @@ int main(int argc, const char *argv[]) {
     printf("addr name is : %p\n", &name); // 输出name的addr
 
     // 下面这些还是有点复杂的，指针也有类型，不同类型产生了不同的结果
-    // 这个就是name的addr，这里的类型对下面影响较大，当前long *时能正常，因为系统是64位的
+    // 这个就是name的addr，这里的类型对下面影响较大，当前long *时能正常，因为编辑器是64位的
     long *nameAddr = (long *) &name;
-    // 拿的就是name中存的addr，用char *比long *更合理（待搞懂原因），若nameAddr为char *这里为2位，short *这里为4位，int *这里为8位, long *这里为16位（这里都是16进制，要再乘以4才是实际的位数）
-    char *nna = (char *) *nameAddr;
+    // 拿的就是name中存的addr，用char *比long *更合理（待搞懂原因），若nameAddr为char *这里为2位，short *这里为4位，int *这里为8位, long *这里为12位（这里都是16进制，要再乘以4才是实际的位数）
+    char *nna = (char *) *nameAddr; // 这里的类型好像并不影响结果
     printf("addr of nameAddr %p\n", nameAddr); // 输出name的addr
-    printf("val in nameAddr %p\n", nna); // 输出name中存的val，也是个addr
-    printf("val %s\n", nna); // 输出str
+    printf("val in nameAddr %p | %p\n", nna, *nameAddr); // 输出name中存的val，也是个addr
+    printf("val %s | %s\n", nna, *nameAddr); // 输出str
 
+    printf("%lu %lu %lu %lu\n", sizeof(char), sizeof(short), sizeof(int), sizeof(long)); // 1/2/4/8
     // endregion
 
     return 0;
