@@ -2,7 +2,8 @@
 #include <stdbool.h>
 #include <math.h>
 #include <stdlib.h>
-#include "string.h"
+#include <string.h>
+#include "loan.h"
 
 int a, b;
 
@@ -29,6 +30,7 @@ int main(int argc, const char *argv[]) {
     printf("flag is %d\n", flag);
 
     printf(" %f\n", sqrt(1001)); // 开方
+    printf(" %0.0f\n", pow(2., 10.)); // 乘方
 
     char str[30] = "2030300 This is test";
     char *ptr;
@@ -46,7 +48,7 @@ int main(int argc, const char *argv[]) {
     // it is worth mentioning that the new operator is not part of C.
     // To allocate memory in the heap in a C program, you use a more primitive mechanism: a call to a function called malloc,
     // which takes one argument, the number of bytes to allocate, and returns a pointer of type void* to a newly allocated chunk of that many bytes.
-    char *name = malloc(strlen(firstName) + strlen(lastName)); // 这里加不加 char *的强转都可以
+    char *name = malloc((strlen(firstName) + strlen(lastName)) << 1); // 这里加不加 char *的强转都可以
     name = strConcat(firstName, lastName, &name); // 因为入参是name的addr，所以这里不赋值也可以
 
     char **nameAddr;
@@ -63,12 +65,15 @@ int main(int argc, const char *argv[]) {
     printf("%lu %lu %lu %lu\n", sizeof(char), sizeof(short), sizeof(int), sizeof(long)); // 1/2/4/8
     // endregion
 
+    loan_business();
+
     return 0;
 }
 
 // 注意下面两个方法中的参数name、nameAddr与调用方虽然重名，但不一样，确切说是调用方的addr，所以会多个*，调用时传的也是&
 char *strConcat(const char *firstName, const char *lastName, char **name) {
     strcpy((*name), firstName); // 先把 firstName copy 到 name
+    strcat((*name), " ");
     strcat((*name), lastName); // 再把 lastName 追加 到 name
     printf(" strcpy + strcat: %s\n", (*name));
 
