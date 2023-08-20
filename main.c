@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "loan.h"
+#include "concurrent.h"
 
 int a, b;
 
@@ -83,6 +84,8 @@ int main(int argc, const char *argv[]) {
     // endregion
 
     loan_business();
+
+    test_demo();
 
     return 0;
 }
